@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const { constant, sportsmanRolesEnum } = require("./src/constants");
+const { SportsmenController } = require("./src/controllers/index");
 const createReplies = require("./src/markups/create.reply");
 const replies_text = require("./src/text");
 
@@ -22,13 +23,14 @@ bot.start((ctx) => {
       "trainer"
     )
   );
-
   bot.hears(sportsmanRolesEnum.TRAINER, (ctx) => {
-    console.log('asdasd');
+    SportsmenController.createTrainer(ctx, sportsmanRolesEnum.TRAINER)
+  });
+
+  bot.hears(sportsmanRolesEnum.SPORTSMAN, (ctx) => {
+    SportsmenController.createTrainer(ctx, sportsmanRolesEnum.SPORTSMAN)
   });
 });
-
-// bot.action('')
 
 bot.command("change_reply", (ctx) => {
   bot.telegram.sendMessage(ctx.chat.id, replies_text.changeReply);
@@ -43,8 +45,3 @@ function _mongooseConnector() {
   });
 }
 
-// bot.telegram.sendMessage(
-//   ctx.chat.id,
-//   replies_text.joinTrainingText,
-//   createReplies("Yes, i will join", "No, next time", "positive", "negative")
-// );
