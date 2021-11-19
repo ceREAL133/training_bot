@@ -23,12 +23,25 @@ bot.start((ctx) => {
       "trainer"
     )
   );
-  bot.hears(sportsmanRolesEnum.TRAINER, (ctx) => {
-    SportsmenController.createTrainer(ctx, sportsmanRolesEnum.TRAINER)
+
+  bot.hears(sportsmanRolesEnum.TRAINER, async (ctx) => {
+    const value = SportsmenController.createSportsman(
+      ctx,
+      sportsmanRolesEnum.TRAINER
+    );
+
+    if (await value) {
+      bot.telegram.sendMessage(ctx.chat.id, replies_text.userExist);
+    } else {
+      bot.telegram.sendMessage(
+        ctx.chat.id,
+        replies_text.userCreatedSuccessfully
+      );
+    }
   });
 
   bot.hears(sportsmanRolesEnum.SPORTSMAN, (ctx) => {
-    SportsmenController.createTrainer(ctx, sportsmanRolesEnum.SPORTSMAN)
+    SportsmenController.createSportsman(ctx, sportsmanRolesEnum.SPORTSMAN);
   });
 });
 
@@ -44,4 +57,3 @@ function _mongooseConnector() {
     useUnifiedTopology: true,
   });
 }
-

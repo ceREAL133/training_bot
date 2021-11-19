@@ -13,7 +13,7 @@ const createReplies = (text1, text2, callbackData1, callbackData2) => {
           },
         ],
       ],
-      // one_time_keyboard: true,
+      one_time_keyboard: true,
       resize_keyboard: true,
     },
   };
