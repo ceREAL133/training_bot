@@ -1,4 +1,6 @@
 const { SportsmenModel } = require("../database");
+const { sportsmanRolesEnum } = require("../constants");
+const replies_text = require("../text");
 
 module.exports = {
   createSportsman: async (ctx, role) => {
@@ -20,6 +22,17 @@ module.exports = {
       return !!searchedSportsman;
     } catch (error) {
       return error;
+    }
+  },
+
+  createdUserReply: async (values, value, bot) => {
+    if (await value) {
+      bot.telegram.sendMessage(values.chat.id, replies_text.userExist);
+    } else {
+      bot.telegram.sendMessage(
+        values.chat.id,
+        replies_text.userCreatedSuccessfully
+      );
     }
   },
 };

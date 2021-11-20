@@ -24,24 +24,20 @@ bot.start((ctx) => {
     )
   );
 
-  bot.hears(sportsmanRolesEnum.TRAINER, async (ctx) => {
+  bot.action("trainer", async (ctx) => {
     const value = SportsmenController.createSportsman(
       ctx,
       sportsmanRolesEnum.TRAINER
     );
-
-    if (await value) {
-      bot.telegram.sendMessage(ctx.chat.id, replies_text.userExist);
-    } else {
-      bot.telegram.sendMessage(
-        ctx.chat.id,
-        replies_text.userCreatedSuccessfully
-      );
-    }
+    SportsmenController.createdUserReply(ctx, value, bot);
   });
 
-  bot.hears(sportsmanRolesEnum.SPORTSMAN, (ctx) => {
-    SportsmenController.createSportsman(ctx, sportsmanRolesEnum.SPORTSMAN);
+  bot.action("sportsman", async (ctx) => {
+    const value = SportsmenController.createSportsman(
+      ctx,
+      sportsmanRolesEnum.SPORTSMAN
+    );
+    SportsmenController.createdUserReply(ctx, value, bot);
   });
 });
 

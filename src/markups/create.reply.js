@@ -1,7 +1,7 @@
 const createReplies = (text1, text2, callbackData1, callbackData2) => {
   return {
     reply_markup: {
-      keyboard: [
+      inline_keyboard: [
         [
           {
             text: text1,
@@ -13,8 +13,6 @@ const createReplies = (text1, text2, callbackData1, callbackData2) => {
           },
         ],
       ],
-      one_time_keyboard: true,
-      resize_keyboard: true,
     },
   };
 };
